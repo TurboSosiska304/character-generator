@@ -1,5 +1,6 @@
 import random
 from ages import MAX_AGE_BY_RACE
+from story import generate_story  # 👈 добавили
 
 names_male = ["Артур", "Рейн", "Кай", "Дарион", "Тору"]
 names_female = ["Элира", "Сирис", "Мей", "Астелла", "Наоми"]
@@ -9,7 +10,6 @@ genders = ["Мужской", "Женский"]
 classes = ["Воин", "Маг", "Охотник", "Вор", "Жрец", "Некромант"]
 traits = ["Добрый", "Мстительный", "Хитрый", "Отважный", "Безумный", "Невозмутимый"]
 
-# Привязка навыков к классам
 skills_by_class = {
     "Воин": ["Фехтование", "Выживание", "Устрашение"],
     "Маг": ["Магия огня", "Магия льда", "Алхимия"],
@@ -29,7 +29,7 @@ def generate_character():
 
     skills_pool = skills_by_class[class_]
     skillset = {
-        skill: random.randint(40, 100)  # от 40 до 100, т.к. это специализация
+        skill: random.randint(40, 100)
         for skill in random.sample(skills_pool, 3)
     }
 
@@ -43,6 +43,9 @@ def generate_character():
         "Навыки": skillset
     }
 
+    # Добавляем историю персонажа
+    character["История"] = generate_story(character)
+
     return character
 
 def export_character(character, filename="персонаж.txt"):
@@ -52,5 +55,8 @@ def export_character(character, filename="персонаж.txt"):
                 file.write("Навыки:\n")
                 for skill, lvl in value.items():
                     file.write(f"  - {skill}: {lvl}\n")
+            elif key == "История":
+                file.write("\nИстория персонажа:\n")
+                file.write(value + "\n")
             else:
                 file.write(f"{key}: {value}\n")

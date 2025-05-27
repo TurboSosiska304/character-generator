@@ -6,7 +6,7 @@ class CharacterGeneratorApp:
     def __init__(self, master):
         self.master = master
         master.title("🌟 Генератор персонажей")
-        master.geometry("600x700")
+        master.geometry("600x800")
         master.configure(bg="#1e1e2f")
 
         self.text = scrolledtext.ScrolledText(
@@ -54,13 +54,11 @@ class CharacterGeneratorApp:
         self.text.insert(tk.END, "🌟 Характеристики персонажа:\n\n")
         for key, value in character.items():
             if key == "Навыки":
-                self.text.insert(tk.END, "🔧 Навыки:\n")
+                self.text.insert(tk.END, "\n🔧 Навыки:\n")
                 for skill, lvl in value.items():
                     self.text.insert(tk.END, f"  • {skill}: {lvl}\n")
+            elif key == "История":
+                self.text.insert(tk.END, "\n📜 История:\n")
+                self.text.insert(tk.END, value + "\n")
             else:
                 self.text.insert(tk.END, f"{key}: {value}\n")
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = CharacterGeneratorApp(root)
-    root.mainloop()
