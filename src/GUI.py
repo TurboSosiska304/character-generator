@@ -62,3 +62,9 @@ class CharacterGeneratorApp:
                 self.text.insert(tk.END, value + "\n")
             else:
                 self.text.insert(tk.END, f"{key}: {value}\n")
+
+if __name__ == "__main__":
+    import tkinter as tk
+    root = tk.Tk()
+    app = CharacterGeneratorApp(root)
+    root.mainloop()
